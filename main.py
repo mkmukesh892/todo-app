@@ -1,35 +1,36 @@
 # Todo terminal app
+# from functions import get_todos, write_todos
+
+import functions
 while True:
     user_action = input('Enter you choice(add, show, edit, complete or exit):')
-    user_action = user_action.strip().lower()
-    match user_action:
-        case "add":
-            todo = input("Enter a todo:") +"\n"
+    user_action = user_action.strip()
+    if user_action.startswith('add') or user_action.startswith('new'):
+        todo = user_action[4:] +"\n"
 
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+        todos = functions.get_todos()
 
-            todos.append(todo)
+        todos.append(todo)
 
-            with open('todos.txt', 'w') as file:
-                file.writelines(todos)
+        functions.write_todos(todos)
 
-        case "show":
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+    elif user_action.startswith('show'):
 
-            # new_todos = [item.strip('\n') for item in todos]
+        todos = functions.get_todos()
 
-            for index, item in enumerate(todos):
-                item = item.strip("\n")
-                row = f"{index + 1}. {item}"
-                print(row)
+        # new_todos = [item.strip('\n') for item in todos]
 
-        case "edit":
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+        for index, item in enumerate(todos):
+            item = item.strip("\n")
+            row = f"{index + 1}. {item}"
+            print(row)
 
-            index = int(input("Enter a todo Number:")) - 1
+    elif user_action.startswith('edit'):
+        try:
+
+            todos = functions.get_todos()
+
+            index = int(user_action[5:]) - 1
 
             if index < 0 or index >= len(todos):
                 print("Invalid todo number")
@@ -37,29 +38,38 @@ while True:
                 edited_todo = input('Enter a todo:')
                 todos[index] = f"{edited_todo}\n"
 
-                with open('todos.txt', 'w') as file:
-                   file.writelines(todos)
+                functions.write_todos(todos)
 
                 print(f'Todo number {index+1} edited successfully!')
 
-        case "complete":
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+        except ValueError:
+            print('Invalid Todo Command')
+            continue
 
-            index = int(input("Enter a Number:")) - 1
+
+    elif user_action.startswith('complete'):
+        try:
+
+            todos = functions.get_todos('todos.txt')
+
+            index = int(user_action[9:]) - 1
 
             if index < 0 or index >= len(todos):
                 print('Invalid todo number')
             else:
                 deleted_todo = todos[index].strip('\n')
                 todos.pop(index)
-                with open('todos.txt', 'w') as file:
-                    file.writelines(todos)
+
+                functions.write_todos(todos)
 
                 print(f'Todo "{deleted_todo}" completed successfully!')
-        case "exit":
-            break
-        case _:
-            print("Invalid todo input")
+
+        except ValueError:
+            print('Todo Command is invalid')
+            continue
+    elif user_action.startswith('exit'):
+        break
+    else:
+        print("Invalid todo input")
 
 print('Bye!')
