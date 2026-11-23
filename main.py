@@ -1,7 +1,9 @@
 # Todo terminal app
 # from functions import get_todos, write_todos
-
+import time
 import functions
+
+print('Today is: ', time.strftime("%c"))
 while True:
     user_action = input('Enter you choice(add, show, edit, complete or exit):')
     user_action = user_action.strip()

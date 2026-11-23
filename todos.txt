@@ -1,10 +1,8 @@
 Learn python file management
-what happen
-Reading Python
-Going for excercise
+Going for exercise
 learning python
 Join Meeting
 Join Webinar
 Hello world
-Grocesary
+Purchasing Grocessary
 Learning Excersise 14
