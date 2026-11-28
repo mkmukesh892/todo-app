@@ -2,11 +2,7 @@ Learn python file management
 Going for exercise
 learning python
 Join Meeting
-Hello World
-Hello world
-XYZ
 Learning Excersise 14
-Learn
 Trying Python
 Learning GUI
-
+Hello World
